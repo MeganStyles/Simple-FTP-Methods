@@ -1,14 +1,14 @@
 package testTime;
 
 import java.io.File;
-
 import org.junit.Assert;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
+
+
 
 public class FTPOperations {
 	

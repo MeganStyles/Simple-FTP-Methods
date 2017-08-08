@@ -1,5 +1,6 @@
 package testTime;
 
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -15,13 +16,14 @@ public class Main {
 	public static void main(String[] args) {
 
 		FTPOperations method = new FTPOperations();
-		Boolean status = method.connectToFTPServer("127.0.0.1", 21, "sa", "12345");
+		Boolean status = method.connectToFTPServer("127.0.0.1", 21, "anonymous", "12345");
 		System.out.println(status);
 				
 	
 		
 		FTPFile file = method.getFileWithFileNameExt("/", "new new file");
-		System.out.println(file);
+		System.out.println(file.getName() + " " + file.getSize());
+		
 		
 		
 		
