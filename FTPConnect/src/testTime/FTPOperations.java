@@ -80,17 +80,17 @@ public class FTPOperations {
 	
 	public FTPFile getFileWithFileNameExt(String strRemoteFolderPath, String strFileName) {
 		if (loginCompleted) {
-			this.setWorkingDirectory(strRemoteFolderPath);
-			fileList = new FTPFile[1];
+			this.setWorkingDirectory(strRemoteFolderPath);;
 			try {
 				fileList = ftp.listFiles(strFileName);
+				yourFile = fileList[0];
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
 			Assert.fail(loginFail);
 		}
-		return fileList[0];
+		return yourFile;
 	}
 	
 	public FTPFile[] getFileWithFileName(String strRemoteFolderPath, String strFileName) {
@@ -135,6 +135,7 @@ public class FTPOperations {
 	public boolean downloadFileFromServer(String strLocalFolderPath, String strRemoteFolderPath, String strFileName) {
 		if (loginCompleted) {
 			try {
+				this.setWorkingDirectory(strRemoteFolderPath);
 				File downloadFile = new File(strLocalFolderPath + "\\" + strFileName);
 				OutputStream fos = new FileOutputStream(downloadFile);
 				actionCompleted = ftp.retrieveFile(strFileName, fos); 
@@ -150,9 +151,10 @@ public class FTPOperations {
 	}
 	
 	
-	public boolean deleteFileFromServer(String strFileName) {
+	public boolean deleteFileFromServer(String strRemoteFolderPath, String strFileName) {
 		if (loginCompleted) {	
 			try {
+				this.setWorkingDirectory(strRemoteFolderPath);
 				actionCompleted = ftp.deleteFile(strFileName);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -164,9 +166,10 @@ public class FTPOperations {
 		return actionCompleted;
 	}
 
-	public boolean renameFileOnServer(String strOldFileName, String strNewFileName) {
+	public boolean renameFileOnServer(String strRemoteFolderPath, String strOldFileName, String strNewFileName) {
 		if (loginCompleted) {
 			try {
+				this.setWorkingDirectory(strRemoteFolderPath);
 				actionCompleted = ftp.rename(strOldFileName, strNewFileName);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -181,6 +184,7 @@ public class FTPOperations {
 	public boolean createDirectoryOnServer(String strRemoteFolderPath, String strNewDirectoryName) {
 		if (loginCompleted) {
 			try {
+				this.setWorkingDirectory(strRemoteFolderPath);
 				actionCompleted = ftp.makeDirectory(strNewDirectoryName);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
