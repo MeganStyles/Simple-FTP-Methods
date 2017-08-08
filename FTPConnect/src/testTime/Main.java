@@ -14,7 +14,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		Methods method = new Methods();
+		FTPOperations method = new FTPOperations();
 		Boolean status = method.connectToFTPServer("127.0.0.1", 21, "sa", "12345");
 		System.out.println(status);
 				
@@ -24,7 +24,7 @@ public class Main {
 		System.out.println(uploaded);
 		System.out.println(method.getCurrentDirectory());
 		
-		FTPFile[] files = method.viewListOfFiles(method.getCurrentDirectory());
+		FTPFile[] files = method.getListOfFiles(method.getCurrentDirectory());
 		
 		
 		System.out.format("%30s%16s%30s", "File Name", "File Size", "Last Modified");
@@ -39,11 +39,14 @@ public class Main {
 		
 		System.out.println();
 		
-		String bool = method.changeWorkingDirectory("/New directory");
+		String bool = method.setWorkingDirectory("/New directory");
 		System.out.println(bool);
-	
+		//System.out.println(method.renameFileOnServer("savedstuff.txt", "Saved Stuff.txt"));
+		System.out.println(method.createDirectoryOnServer("/New directory", "another directory"));
+		method.deleteDirectoryOnServer("another directory");
+/*	
 		
-FTPFile[] moreFiles = method.viewListOfFiles(method.getCurrentDirectory());
+FTPFile[] moreFiles = method.getSpecificFileInWorkingDirectory("savedstuff.txt");
 		
 		
 		System.out.format("%30s%16s%30s", "File Name", "File Size", "Last Modified");
@@ -57,7 +60,7 @@ FTPFile[] moreFiles = method.viewListOfFiles(method.getCurrentDirectory());
 		}
 		
 		System.out.println();
-		
+	*/	
 		method.closeFTPConnectionLogout();
 	}
 	
