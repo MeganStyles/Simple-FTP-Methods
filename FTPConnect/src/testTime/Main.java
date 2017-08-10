@@ -1,11 +1,6 @@
 package testTime;
 
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
+import org.junit.Test;
 
 /**
  * @author stylesm
@@ -13,35 +8,16 @@ import org.apache.commons.net.ftp.FTPFile;
  */
 public class Main {
 
+	@Test
 	public static void main(String[] args) {
-
-		FTPOperations method = new FTPOperations();
-		Boolean status = method.connectToFTPServer("127.0.0.1", 21, "anonymous", "12345");
-		System.out.println(status);
-				
-	
+/*
+		FTPSOperations ftpS = new FTPSOperations();
+		//System.out.println(
+				ftpS.connectToFTPSServer("test.rebex.net", 990, "demo", "password");//);
+	*/	
+		SFTPOperations sftp = new SFTPOperations();
+		sftp.connectToSFTPServer("127.0.0.1", 22, "sa", "12345", "C:\\Users\\stylesm\\Music\\private2");
 		
-		FTPFile file = method.getFileWithFileNameExt("/", "new new file");
-		System.out.println(file.getName() + " " + file.getSize());
-		
-		
-		
-		
-
-		
-FTPFile[] moreFiles = method.getFileWithPartialFileName("/", "test");
-		
-		
-		System.out.format("%30s%16s%30s", "File Name", "File Size", "Last Modified");
-		System.out.println();
-		for(FTPFile file1 : moreFiles) {
-			System.out.println();
-			System.out.format("%30s%16s",file1.getName(), file1.getSize());
-		}
-		
-		System.out.println();
-	
-		method.closeFTPConnectionLogout();
 	}
 	
 
