@@ -14,15 +14,15 @@ public class Main {
 
 		FTPSOperations ftpS = new FTPSOperations();
 		
-		//System.out.println(ftpS.connectToFTPSServer("test.rebex.net", 21, "demo", "password"));
-		System.out.println(ftpS.getListOfFiles("ftp://demo@test.rebex.net", 21, "demo", "password","/"));
+		System.out.println(ftpS.connectToFTPSServer("195.144.107.198", 21, "demo", "password", 10000));
+	//System.out.println(ftpS.getListOfFiles("/").length);
 		
-		/*FTPFile[] fileArray = ftpS.getListOfFiles("/");
-		for(FTPFile file : fileArray) {
-			String name = file.getName().toString();
+		String[] nameArray = ftpS.getListOfFiles("/");
+		System.out.println(nameArray.length);
+	/*	for(String name : nameArray) {
+			//String name = file.getName().toString();
 			System.out.println(name);
-		}
-		System.out.println(fileArray.length);*/
+		}*/
 		
 		
 				

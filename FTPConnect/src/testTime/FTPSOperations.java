@@ -6,21 +6,20 @@ import java.net.InetAddress;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPSClient;
 import org.junit.Test;
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 public class FTPSOperations {
 
-	FTPSClient ftpS = new FTPSClient(true);
+	FTPSClient ftpS = new FTPSClient(false);
 	FTPFile[] ftpFileArray;
+	String[] stringNamesArray ;
 	boolean loginCompleted = false;
 	
 	
-	public boolean connectToFTPSServer(String strServerIP, int intPortNumber, String strUsername, String strPassword) {
+	public boolean connectToFTPSServer(String strServerIP, int intPortNumber, String strUsername, String strPassword, int timeout) {
 		try {
-			ftpS.setConnectTimeout(10000);
-			InetAddress inetAddress = InetAddress.getByName(strServerIP);
-			//System.out.println("Connecting to " + inetAddress.toString() );
-			ftpS.connect(inetAddress, intPortNumber);
-			//System.out.println("Connected, logging in...");
+			ftpS.setConnectTimeout(timeout);
+			ftpS.connect(strServerIP, intPortNumber);
 			loginCompleted = ftpS.login(strUsername, strPassword);
 			
 			
@@ -35,21 +34,16 @@ public class FTPSOperations {
 	
 	
 	
-	public FTPFile[] getListOfFiles(String strServerIP, int intPortNumber, String strUsername, String strPassword, String strRemoteFolderPath) {
+	public String[] getListOfFiles(String strRemoteFolderPath) {
 		try {
-			//ftpS.setConnectTimeout(10000);
-			//InetAddress inetAddress = InetAddress.getByName(strServerIP);
-			//System.out.println("Connecting to " + inetAddress.toString() );
-			FTPSClient ftpS1 = new FTPSClient(false);
-			//FTPSClient ftpS1 = new FTPSClient(context);
-			ftpS1.connect("195.144.107.198", 21);
-			ftpS1.setControlKeepAliveReplyTimeout(10000);
-			ftpFileArray = ftpS1.listFiles(strRemoteFolderPath);
+			
+			//ftpFileArray = ftpS.listFiles(strRemoteFolderPath);
+			stringNamesArray = ftpS.listNames();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return ftpFileArray;
+		return stringNamesArray;
 	}
 	
 	public FTPFile[] getDirectory() {
